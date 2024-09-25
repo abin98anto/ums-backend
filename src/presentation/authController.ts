@@ -7,7 +7,11 @@ export const registerUser = async (req: Request, res: Response) => {
     const token = await register(email, password, profileImage);
     res.json({ token });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(400).json({ message: "Unknown error occurred" });
+    }
   }
 };
 
@@ -17,6 +21,10 @@ export const loginUser = async (req: Request, res: Response) => {
     const token = await login(email, password);
     res.json({ token });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(400).json({ message: "Unknown error occurred" });
+    }
   }
 };
