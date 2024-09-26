@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 connectDB();
 
 app.post("/register", registerUser);
-app.post("/api/auth/login", loginUser);
+app.post("/login", loginUser);
 
 app.get("/api/users", protect, getUsers);
 app.delete("/api/users/:id", protect, deleteUser);
