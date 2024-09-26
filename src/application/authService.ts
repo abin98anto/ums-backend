@@ -25,13 +25,14 @@ const generateRefreshToken = (user: IUser) => {
     );
 };
 
-// Save the user in database, returns accessToken and refreshToken. 
+// Save the user in database, returns accessToken and refreshToken.
 export const register = async (
+  name: string,
   email: string,
   password: string,
   profileImage: string
 ) => {
-  const user = new User({ email, password, profileImage });
+  const user = new User({ name, email, password, profileImage });
   await user.save();
 
   const accessToken = generateAcessToken(user);
