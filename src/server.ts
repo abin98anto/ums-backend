@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 
 connectDB();
 
+// User Authentication Routes
 app.post("/register", registerUser);
 app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);

@@ -5,9 +5,10 @@ import jwt from "jsonwebtoken";
 // Calls register(name, email, password, profileImage) and saves refreshToken in the server's cookie, returns acces token.
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { email, password, profileImage } = req.body;
+    const { name, email, password, profileImage } = req.body;
 
     const { accessToken, refreshToken } = await register(
+      name,
       email,
       password,
       profileImage

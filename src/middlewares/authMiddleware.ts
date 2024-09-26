@@ -4,22 +4,63 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const protect = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split(" ")[1];
+export interface UserJWT {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  profileImage?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CustomRequest extends Request {
+  user?: UserJWT;
+}
+
+export const protect = (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  let token: string | undefined;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
 
   if (!token) {
-    return res.status(401).json({ message: "Not authorized" });
+    return res.status(401).json({ message: "Not authorized, no token" });
   }
 
   try {
-    if (!process.env.JWT_SECRET_KEY) {
+    if (!process.env.JWT_ACCESS) {
       throw new Error("JWT_SECRET_KEY is not defined");
     }
-    
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    (req as any).user = decoded;
+
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_ACCESS
+    ) as jwt.JwtPayload & UserJWT;
+
+    req.user = {
+      id: decoded.id,
+      name: decoded.name,
+      email: decoded.email,
+      role: decoded.role,
+      createdAt: new Date(decoded.createdAt),
+      updatedAt: new Date(decoded.updatedAt),
+      profileImage: decoded.profileImage || undefined,
+    };
+
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
+    if (error instanceof jwt.TokenExpiredError) {
+      return res.status(401).json({ message: "Access token expired" });
+    }
+    return res.status(403).json({ message: "Invalid token" });
   }
 };
