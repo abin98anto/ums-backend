@@ -4,10 +4,15 @@
   "description": "User Management System backend using Express, JWT, and MongoDB",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js", 
-    "dev": "npm run build && node dist/server.js" 
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch src --exec 'tsc && node dist/server.js'"
   },
-  "keywords": ["user-management", "backend", "express", "typescript"],
+  "keywords": [
+    "user-management",
+    "backend",
+    "express",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,6 +27,7 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.0",
+    "nodemon": "^3.1.7",
     "typescript": "^5.6.2"
   }
 }
