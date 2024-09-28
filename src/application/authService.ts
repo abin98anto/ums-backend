@@ -1,23 +1,6 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
 import User from "../domain/User";
-import { IUser } from "../domain/entities/userModel";
 import { generateAcessToken } from "./jwt/generateAccessToken";
-
-dotenv.config();
-
-// Create Refresh token.
-const generateRefreshToken = (user: IUser) => {
-  if (process.env.JWT_REFRESH)
-    return jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_REFRESH,
-      {
-        expiresIn: "7d",
-      }
-    );
-};
+import { generateRefreshToken } from "./jwt/generateRefreshToken";
 
 // Save the user in database, returns accessToken and refreshToken.
 export const register = async (

@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 import { IUser } from "../../domain/entities/userModel";
 
 dotenv.config();
