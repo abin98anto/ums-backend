@@ -22,7 +22,7 @@ app.post("/register", registerUser);
 app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);
 
-app.get("/api/users", protect, getUsers);
+app.get("/users", protect, getUsers);
 app.delete("/api/users/:id", protect, deleteUser);
 
 const PORT = process.env.PORT;
