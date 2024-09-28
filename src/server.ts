@@ -24,10 +24,8 @@ app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);
 app.post("/logout", logoutUser);
 
-// Admin Side Routes
-
 app.get("/users", protect, getUsers);
-app.delete("/api/users/:id", protect, deleteUser);
+app.delete("/users/:id", protect, deleteUser);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
