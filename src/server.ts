@@ -5,6 +5,7 @@ import {
   registerUser,
   loginUser,
   refreshAccessToken,
+  logoutUser,
 } from "./presentation/authController";
 import { getUsers, deleteUser } from "./presentation/userController";
 import { protect } from "./middlewares/authMiddleware";
@@ -21,6 +22,7 @@ connectDB();
 app.post("/register", registerUser);
 app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);
+app.post("/logout", logoutUser);
 
 app.get("/users", protect, getUsers);
 app.delete("/api/users/:id", protect, deleteUser);

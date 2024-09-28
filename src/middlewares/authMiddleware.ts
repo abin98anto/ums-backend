@@ -56,6 +56,10 @@ export const protect = (
       profileImage: decoded.profileImage || undefined,
     };
 
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied, admin only" });
+    }
+
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
