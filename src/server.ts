@@ -18,11 +18,13 @@ app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 
 connectDB();
 
-// User Authentication Routes
+// User Side Routes
 app.post("/register", registerUser);
 app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);
 app.post("/logout", logoutUser);
+
+// Admin Side Routes
 
 app.get("/users", protect, getUsers);
 app.delete("/api/users/:id", protect, deleteUser);
