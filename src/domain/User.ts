@@ -1,15 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcryptjs";
+import { IUser } from "./entities/userModel";
 
-export interface IUser extends Document {
-  email: string;
-  name: string;
-  password: string;
-  role: string;
-  profileImage: string;
-  comparePassword: (password: string) => Promise<Boolean>;
-}
-
+// User Model.
 const UserSchema: Schema<IUser> = new Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
@@ -18,6 +11,7 @@ const UserSchema: Schema<IUser> = new Schema({
   profileImage: { type: String, default: "" },
 });
 
+// Encrypt Password.
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -25,6 +19,7 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
+// Compare Password.
 UserSchema.methods.comparePassword = async function (
   password: string
 ): Promise<boolean> {
