@@ -1,17 +1,11 @@
 import jwt from "jsonwebtoken";
-import { IUser } from "../domain/entities/userModel";
-import User from "../domain/User";
 import dotenv from "dotenv";
 
-dotenv.config();
+import User from "../domain/User";
+import { IUser } from "../domain/entities/userModel";
+import { generateAcessToken } from "./jwt/generateAccessToken";
 
-// Create access token.
-const generateAcessToken = (user: IUser) => {
-  if (process.env.JWT_ACCESS)
-    return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_ACCESS, {
-      expiresIn: "15m",
-    });
-};
+dotenv.config();
 
 // Create Refresh token.
 const generateRefreshToken = (user: IUser) => {
