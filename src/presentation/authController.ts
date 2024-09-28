@@ -87,6 +87,7 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
   }
 };
 
+// User Logout Functionality (It just destroys the cookie).
 export const logoutUser = async (req: Request, res: Response) => {
   try {
     res.clearCookie("refreshToken", {

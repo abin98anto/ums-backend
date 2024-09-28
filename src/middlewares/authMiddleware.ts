@@ -18,6 +18,7 @@ export interface CustomRequest extends Request {
   user?: UserJWT;
 }
 
+// Middleware to protect admin routes.
 export const protect = (
   req: CustomRequest,
   res: Response,
