@@ -32,7 +32,7 @@ export const protect = (
   ) {
     token = req.headers.cookie?.split("=")[1];
   }
-  console.log(req.headers.cookie?.split("=")[1]);
+  
   if (!token) {
     return res.status(401).json({ message: "Not authorized, no token" });
   }
