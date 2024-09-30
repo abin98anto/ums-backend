@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+
 import connectDB from "./infrastructure/database";
 import {
   registerUser,
@@ -15,6 +17,13 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "100mb" }));
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 connectDB();
 
