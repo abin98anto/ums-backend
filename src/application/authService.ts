@@ -30,3 +30,19 @@ export const login = async (email: string, password: string) => {
 
   return { accessToken, refreshToken };
 };
+
+export const adminLogin = async (email: string, password: string) => {
+  const user = await User.findOne({ email });
+  if (
+    !user ||
+    user.role !== "admin" ||
+    !(await user.comparePassword(password))
+  ) {
+    throw new Error("Invalid credentials");
+  }
+
+  const accessToken = generateAcessToken(user);
+  const refreshToken = generateRefreshToken(user);
+
+  return { accessToken, refreshToken };
+};

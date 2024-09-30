@@ -33,6 +33,9 @@ app.post("/login", loginUser);
 app.post("/refresh-accestoken", refreshAccessToken);
 app.post("/logout", logoutUser);
 
+// Admin Side Routes
+app.post("/admin", )
+
 app.get("/users", protect, getUsers);
 app.delete("/users/:id", protect, deleteUser);
 
