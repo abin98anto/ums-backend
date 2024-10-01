@@ -15,7 +15,7 @@ export const register = async (
   const accessToken = generateAcessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, user };
 };
 
 // Checks user credentials, returns accessToken and refreshToken.
@@ -44,5 +44,5 @@ export const adminLogin = async (email: string, password: string) => {
   const accessToken = generateAcessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, user };
 };

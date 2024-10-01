@@ -11,7 +11,11 @@ interface CustomRequest extends Request {
 export const loginAdmin = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    const { accessToken, refreshToken } = await adminLogin(email, password);
+    const { accessToken, refreshToken, user } = await adminLogin(
+      email,
+      password
+    );
+    console.log("bbc", user);
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -20,7 +24,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken, user });
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).json({ message: error.message });
