@@ -28,7 +28,7 @@ export const login = async (email: string, password: string) => {
   const accessToken = generateAcessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, user };
 };
 
 export const adminLogin = async (email: string, password: string) => {
